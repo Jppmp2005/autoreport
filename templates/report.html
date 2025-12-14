@@ -9,16 +9,19 @@
 <div class="container py-5">
     <h1 class="text-center mb-4">Relatório Inteligente</h1>
 
+    <!-- Preview CSV -->
     <div class="card p-4 shadow-sm mb-4">
         <h2>Preview CSV</h2>
         {{ preview|safe }}
     </div>
 
+    <!-- Estatísticas com gráfico -->
     <div class="card p-4 shadow-sm mb-4">
         <h2>Estatísticas</h2>
         <canvas id="statsChart" width="400" height="200"></canvas>
     </div>
 
+    <!-- Insights -->
     <div class="card p-4 shadow-sm mb-4">
         <h2>Insights</h2>
         <ul>
@@ -31,17 +34,34 @@
     <a href="/" class="btn btn-primary w-100">Voltar</a>
 </div>
 
+<!-- Script Chart.js corrigido -->
 <script>
+const labels = {{ numeric_cols|tojson }};
+const data = [
+    {% for col in numeric_cols %}
+        {{ stats[col]['total'] }}{% if not loop.last %}, {% endif %}
+    {% endfor %}
+];
+
 const ctx = document.getElementById('statsChart').getContext('2d');
-const data = {
-    labels: {{ numeric_cols|tojson }},
-    datasets: [{
-        label: 'Total por tipo de falta',
-        data: {{ numeric_cols|map('attribute', 'total')|list|tojson }},
-        backgroundColor: ['#007bff','#28a745','#ffc107','#dc3545','#17a2b8']
-    }]
-};
-const statsChart = new Chart(ctx, { type: 'bar', data });
+const statsChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Total por tipo de falta',
+            data: data,
+            backgroundColor: ['#007bff','#28a745','#ffc107','#dc3545','#17a2b8']
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: true, position: 'top' },
+            title: { display: true, text: 'Total de Faltas por Tipo' }
+        }
+    }
+});
 </script>
 </body>
 </html>
