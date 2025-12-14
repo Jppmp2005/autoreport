@@ -1,0 +1,9 @@
+<h2>Preview</h2>
+{{ preview|safe }}
+
+<h2>Statistics</h2>
+<ul>
+{% for col, data in stats.items() %}
+  <li><b>{{ col }}</b> — Mean: {{ data.mean }}, Min: {{ data.min }}, Max: {{ data.max }}</li>
+{% endfor %}
+</ul>
