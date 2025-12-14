@@ -2,22 +2,38 @@ import pandas as pd
 
 def analyze_csv(path):
     """
-    Lê um CSV e retorna:
-    - preview: primeiras 20 linhas
-    - stats: estatísticas de colunas numéricas (mean, min, max, count)
-    - numeric_cols: lista de colunas numéricas
+    Lê CSV e retorna:
+    - preview das primeiras 20 linhas
+    - stats de cada coluna numérica
+    - insights por funcionário
     """
     df = pd.read_csv(path)
 
     numeric_cols = df.select_dtypes(include="number").columns.tolist()
 
+    # Estatísticas básicas
     stats = {}
     for col in numeric_cols:
         stats[col] = {
-            "mean": float(df[col].mean()),
-            "min": float(df[col].min()),
-            "max": float(df[col].max()),
-            "count": int(df[col].count())
+            "total": int(df[col].sum()),
+            "media": round(float(df[col].mean()), 2),
+            "max": int(df[col].max()),
+            "min": int(df[col].min())
         }
 
-    return df.head(20), stats, numeric_cols
+    # Total de faltas por funcionário
+    df["Total_Faltas"] = df[numeric_cols].sum(axis=1)
+    if "Total_Faltas" not in numeric_cols:
+        numeric_cols.append("Total_Faltas")
+
+    # Insights simples
+    insights = []
+    media_total = df["Total_Faltas"].mean()
+    for _, row in df.iterrows():
+        if row["Total_Faltas"] > media_total:
+            insights.append(f"{row['Nome']} teve {row['Total_Faltas']} faltas, acima da média do grupo.")
+        else:
+            insights.append(f"{row['Nome']} teve {row['Total_Faltas']} faltas, dentro da média.")
+
+    return df.head(20), stats, numeric_cols, insights
+
