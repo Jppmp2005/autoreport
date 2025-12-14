@@ -1,6 +1,12 @@
 import pandas as pd
 
 def analyze_csv(path):
+    """
+    Lê um CSV e retorna:
+    - preview: primeiras 20 linhas
+    - stats: estatísticas de colunas numéricas (mean, min, max, count)
+    - numeric_cols: lista de colunas numéricas
+    """
     df = pd.read_csv(path)
 
     numeric_cols = df.select_dtypes(include="number").columns.tolist()
