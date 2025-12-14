@@ -2,16 +2,18 @@ import pandas as pd
 
 def analyze_csv(path):
     """
-    Lê CSV e retorna:
+    Lê o CSV e retorna:
     - preview das primeiras 20 linhas
-    - stats de cada coluna numérica
-    - insights por funcionário
+    - stats por coluna numérica, incluindo Total_Faltas
+    - lista de colunas numéricas (numeric_cols)
+    - insights automáticos por funcionário
     """
     df = pd.read_csv(path)
 
+    # Seleciona colunas numéricas
     numeric_cols = df.select_dtypes(include="number").columns.tolist()
 
-    # Estatísticas básicas
+    # Estatísticas básicas por coluna
     stats = {}
     for col in numeric_cols:
         stats[col] = {
@@ -23,8 +25,16 @@ def analyze_csv(path):
 
     # Total de faltas por funcionário
     df["Total_Faltas"] = df[numeric_cols].sum(axis=1)
-    if "Total_Faltas" not in numeric_cols:
-        numeric_cols.append("Total_Faltas")
+
+    # Adiciona Total_Faltas ao stats
+    stats["Total_Faltas"] = {
+        "total": int(df["Total_Faltas"].sum()),
+        "media": round(float(df["Total_Faltas"].mean()), 2),
+        "max": int(df["Total_Faltas"].max()),
+        "min": int(df["Total_Faltas"].min())
+    }
+
+    numeric_cols.append("Total_Faltas")
 
     # Insights simples
     insights = []
@@ -36,4 +46,5 @@ def analyze_csv(path):
             insights.append(f"{row['Nome']} teve {row['Total_Faltas']} faltas, dentro da média.")
 
     return df.head(20), stats, numeric_cols, insights
+
 
