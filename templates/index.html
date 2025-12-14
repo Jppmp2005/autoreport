@@ -1,5 +1,105 @@
-<h2>Upload CSV</h2>
-<form method="post" enctype="multipart/form-data">
-  <input type="file" name="file" required>
-  <button type="submit">Generate Report</button>
-</form>
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AutoReport – Relatórios Inteligentes Online</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f8f9fa; }
+        .hero { background-color: #007bff; color: white; padding: 80px 0; text-align: center; }
+        .hero h1 { font-size: 3rem; margin-bottom: 20px; }
+        .section { padding: 60px 0; }
+        .btn-primary { background-color: #007bff; border: none; }
+        .btn-primary:hover { background-color: #0056b3; }
+        .card { border: none; border-radius: 15px; }
+    </style>
+</head>
+<body>
+
+<!-- Hero Section -->
+<section class="hero">
+    <div class="container">
+        <h1>AutoReport</h1>
+        <p class="lead">Transforma dados simples em <strong>relatórios inteligentes, gráficos interativos e insights automáticos</strong> em segundos.</p>
+    </div>
+</section>
+
+<!-- Upload CSV -->
+<section class="section text-center">
+    <div class="container">
+        <h2 class="mb-4">Comece agora</h2>
+        <p>Envie o seu CSV e gere o relatório automaticamente</p>
+        <form action="/" method="POST" enctype="multipart/form-data" class="d-flex flex-column align-items-center">
+            <input type="file" name="file" class="form-control mb-3" required accept=".csv" style="max-width:400px;">
+            <button type="submit" class="btn btn-primary btn-lg">Gerar Relatório</button>
+        </form>
+    </div>
+</section>
+
+<!-- Benefícios -->
+<section class="section bg-light">
+    <div class="container">
+        <h2 class="mb-4 text-center">Benefícios da AutoReport</h2>
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="card p-3 shadow-sm">
+                    <h5>Poupa tempo</h5>
+                    <p>Relatórios que demorariam horas no Excel são gerados em segundos.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card p-3 shadow-sm">
+                    <h5>Automação completa</h5>
+                    <p>Gráficos e insights automáticos sem necessidade de fórmulas ou macros.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card p-3 shadow-sm">
+                    <h5>Monetização</h5>
+                    <p>Pagamento online via Stripe ou PayPal, tornando a aplicação um produto SaaS.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Como funciona -->
+<section class="section">
+    <div class="container">
+        <h2 class="mb-4 text-center">Como funciona</h2>
+        <div class="row text-center">
+            <div class="col-md-4 mb-4">
+                <div class="card p-3 shadow-sm">
+                    <h5>1. Carregar CSV</h5>
+                    <p>Envie os dados de forma simples e segura.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card p-3 shadow-sm">
+                    <h5>2. Gerar relatório</h5>
+                    <p>Estatísticas, gráficos e insights aparecem automaticamente.</p>
+                </div>
+            </div>
+            <div class="col-md-4 mb-4">
+                <div class="card p-3 shadow-sm">
+                    <h5>3. Pagar e descarregar</h5>
+                    <p>Relatório pronto para download ou acesso online.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Call to Action Final -->
+<section class="section text-center">
+    <div class="container">
+        <h2 class="mb-4">Comece a automatizar os seus relatórios hoje!</h2>
+        <a href="/" class="btn btn-primary btn-lg m-2">Gerar Relatório</a>
+        <a href="/demo" class="btn btn-secondary btn-lg m-2">Ver Demonstração</a>
+    </div>
+</section>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
