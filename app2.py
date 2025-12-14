@@ -2,6 +2,11 @@ from flask import Flask, render_template, request
 import os
 from analysis import analyze_csv
 
+from flask import Flask, render_template
+@app.route("/")
+def index():
+    return render_template("index.html")
+
 app = Flask(__name__)
 UPLOAD_FOLDER = "static/uploads"
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
